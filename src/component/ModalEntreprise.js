@@ -16,15 +16,11 @@ export default function ModalEntreprise(props) {
     function send() {
 
         console.log(user)
-        axios.patch(process.env.REACT_APP_BACK + "/users/users/" + user.user.firm_name, {}, { withCredentials: true }).then((r) => {
-
+        axios.patch(process.env.REACT_APP_BACK + "/users/" + user.user.firm_name, {}, { withCredentials: true }).then((r) => {
+            console.log(r.data)
             user.setSuccess('courrier retiré')
-            user.setUser(r.data[0])
+            user.setUser(r.data)
             props.open('hidden')
-
-           
-
-
 
         }).catch((er) => {
             console.log(er)

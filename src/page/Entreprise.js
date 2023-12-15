@@ -7,7 +7,7 @@ export default function Entreprise(props) {
 
     const user = useContext(UserContext)
 
-
+console.log(user)
     return (
         <>
 
@@ -15,7 +15,7 @@ export default function Entreprise(props) {
 
                 {user.user &&
                     <div>
-                        {user.user.has_mail === false &&
+                        {!user.user.has_mail &&
 
                             <div>
 

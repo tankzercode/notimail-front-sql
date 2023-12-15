@@ -87,6 +87,5 @@ export default function Acceuil(props) {
             </div>
         </div>
 
-
     </>)
 }

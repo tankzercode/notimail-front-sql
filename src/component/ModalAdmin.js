@@ -8,23 +8,7 @@ export default function ModalAdmin(props) {
     const user = useContext(UserContext)
 
     console.log(props)
-    // useEffect(() => {
 
-    //     if (document.querySelector("#ModalAdmin")) {
-    //         window.addEventListener('click', function (e) {
-    //             if (document.querySelector('#ModalAdmin').contains(e.target) || document.querySelector("#buttonsendmail") !== e.target) {
-
-    //             } else {
-
-    //                 props.open("hidden")
-
-
-    //             }
-    //         });
-    //     }
-
-
-    // }, [])
 
     function send() {
 
@@ -72,7 +56,7 @@ export default function ModalAdmin(props) {
 
                             {props.selected.map((el, index) => {
                                 return <p key={index}>
-                                    {el.firm_name}
+                                    {el}
                                 </p>
                             })}
 

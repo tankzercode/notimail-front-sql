@@ -16,6 +16,7 @@ export default function Admin() {
 
     console.log(user)
     function show() {
+        console.log(selected)
         if (selected[0]) {
             setOpen("visible")
 
@@ -27,7 +28,6 @@ export default function Admin() {
 
 
     function filtre(e) {
-        console.log(e.target.value)
         setFilter(list.filter(el => el.firm_name.includes(e.target.value)))
     }
 
@@ -36,9 +36,9 @@ export default function Admin() {
         axios.get(process.env.REACT_APP_BACK + "/users/users", { withCredentials: true }).then((r) => {
             setList(r.data)
             setFilter(r.data)
+            console.log(r.data)
         }).catch((er) => {
-
-            console.log(er)
+            user.setError("une erreur est survenue")
 
         })
 
@@ -63,7 +63,7 @@ export default function Admin() {
             {user.user.email === "root" &&
 
                 <p className="btn btn-danger" >
-                    vous devez modifier votre compte avec vos informations
+                    vous devez modifier votre compte avec vos informations  
                 </p>
 
             }
@@ -75,7 +75,7 @@ export default function Admin() {
             <br></br>
             <br></br>
 
-            <div style={{ maxWidth: "500px", margin: "auto" }}>
+            <div style={{ maxWidth: "500px",marginBottom:"110px", marginLeft: "auto", marginRight:"auto" }}>
                 {filtered !== null &&
 
                     filtered.map((el, index) => {
@@ -92,16 +92,12 @@ export default function Admin() {
                                             Courrier en attente
                                         </p>
                                     }
-                                    {el.has_mail === false || el.has_mail === null &&
+                                    {!el.has_mail  &&
                                         <input onChange={(e) => {
-
-                                            console.log(e.target.checked)
-
-
                                             if (e.target.checked === true) {
                                                 setSelected([
                                                     ...selected,
-                                                    el
+                                                    el.firm_name
                                                 ])
                                                 console.log(selected)
 
@@ -109,12 +105,11 @@ export default function Admin() {
                                             else {
                                                 setSelected(
                                                     selected.filter((a) => {
-                                                        if (a._id === el._id) {
-                                                            return el
+                                                        if (a.id === el.id) {
+                                                            return el.firm_name
                                                         }
                                                     })
                                                 )
-                                                console.log(selected)
 
                                             }
 
@@ -127,7 +122,7 @@ export default function Admin() {
                                     <p className="text-primary">  {el.first_name} {el.last_name}</p>
 
                                     <p className="text-primary">{el.phone_number}</p>
-                                    <p className="text-primary">{el.is_admin ? <p className="text-danger">Admin</p> : "Utilisateurs"}</p>
+                                    <p className="text-primary">{el.is_admin ? <p className="text-danger">Admin</p> : "Utilisateur"}</p>
                                 </div>
 
                                 <div>

@@ -14,15 +14,17 @@ export default function AjouterEntreprise() {
     const [email, setemail] = useState(null)
     const [phone_number, setphone_number] = useState(null)
     const [code, setCode] = useState(null)
-
+    const [is_admin, setIs_admin] = useState(false)
 
     function sendData() {
-        axios.post(process.env.REACT_APP_BACK + "/users/users", { firm_name, first_name, last_name, email, phone_number, code }, { withCredentials: true }).then((r) => {
+        axios.post(process.env.REACT_APP_BACK + "/users", { firm_name, first_name, last_name, email, phone_number, code, is_admin }, { withCredentials: true }).then((r) => {
             user.setSuccess("utilisateurs ajouté")
             navigate("/admin")
 
         }).catch((er) => {
             console.log(er)
+
+            user.setError("Une erreur est survenue")
         })
     }
 
@@ -44,7 +46,7 @@ export default function AjouterEntreprise() {
             }}> <button className="btn btn-danger">retour</button>  </div>
             <br></br>
 
-            <div style={{ maxWidth: "500px", margin: "auto", textAlign:"left" }}>
+            <div style={{ maxWidth: "500px", margin: "auto", textAlign: "left" }}>
 
 
                 <div className="mb-3">
@@ -64,6 +66,14 @@ export default function AjouterEntreprise() {
                     <input type="email" onChange={(e) => { setemail(e.target.value) }} className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" />
                 </div>
                 <div className="mb-3">
+                    <label className="form-label">Role</label>
+                    <select class="form-select" onChange={(e) => { setIs_admin(e.target.value) }} aria-label="Default select example">
+                        <option selected>Choisir un role</option>
+                        <option value="false">Utilisateur</option>
+                        <option value="true">Admin</option>
+                    </select>
+                </div>
+                <div className="mb-3">
                     <label className="form-label">phone_number</label>
                     <input type="email" onChange={(e) => { setphone_number(e.target.value) }} className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" />
                 </div>
@@ -72,8 +82,8 @@ export default function AjouterEntreprise() {
                     <input type="password" onChange={(e) => { setCode(e.target.value) }} className="form-control" id="exampleInputPassword1" />
                 </div>
 
-                <div style={{textAlign:"right" }} >
-                    <button onClick={() => {sendData()}} className="btn btn-success">Ajouter</button>  </div>
+                <div style={{ textAlign: "right" }} >
+                    <button onClick={() => { sendData() }} className="btn btn-success">Ajouter</button>  </div>
                 <br></br>
 
             </div>
